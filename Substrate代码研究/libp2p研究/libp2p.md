@@ -69,7 +69,9 @@ pub enum BehaviourOut<TMessage> {
     #[behaviour(ignore)]
     events: Vec<BehaviourOut<TMessage>>,
 ```
-在事件发生时放到这个列表：
+在事件发生时放到这个列表：  
+>    由此处明显看出NetworkBehaviourEventProcess是有事件发生时的回调函数，这个作用就是把消息放入event队列中：  
+>    个人的观点(从字面上看，是把Identif类型替换成了BehaviourOut::Identified类型):看起来是把这个消息从各个子流中取出，然后放到主behaviour的events中去，这个后续需要进一步验证
 ```rust
 impl<TMessage, TSubstream> NetworkBehaviourEventProcess<IdentifyEvent> for Behaviour<TMessage, TSubstream> {
     fn inject_event(&mut self, event: IdentifyEvent) {
@@ -168,3 +170,6 @@ pub enum NetworkBehaviourAction<TInEvent, TOutEvent> {
     DialAddress {
 * DialAddress/DialPeer 拨号
 * ReportObserverAddr 新地址到达
+
+
+#  说明
