@@ -1,0 +1,5 @@
+# 说明
+network目录
+1. 修改networ中目录下，libp2p::kad到libp2p_kad，添加饱和度计算和根据饱和度获取最可能节点的函数closest_keys_by_saturate
+2. 在Discovery中添加函数get_closet_peers，调用kad中的closest_keys_by_saturate
+3. 在behaviour上添加get_closet_peers，调用libp2p_kad的get_closet_peers
