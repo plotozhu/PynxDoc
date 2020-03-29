@@ -86,7 +86,8 @@ pub struct NetworkConfiguration {
 `client/service/src/builder.rs`中创建了一个线程，执行`build_network_future`，使用poll_fn闭包中执行`sc_network::NetworkWorker<B, H>`来实现信息网络状态的更新  
 KAD网络被用于网络发现，因此在`Discovery`中进行，包装成了一个`DiscoveryBehaviour`, 而在标准的`Behaviour`中，把DiscoveryBehaviour对象的一个实例存储到了内部。在创建Swarm对象的函数`Swarm.Build`中，需要使用此`Behaviour`对象作为参数传入，由此方式实现了KAD网络
 
-目前的实现中，  SendToPeer是否可以实现端点对端点发送？
+目前的实现中，  SendToPeer是否可以实现端点对端点发送？ 
+* 分析结果，只发给邻节点，如果邻节点没有连接，直接丢弃返回了
 
 ## network::src::protocol::generic_proto::behaviour.rs
 这是通用的协议处理，以下是代码内文档的翻译  
