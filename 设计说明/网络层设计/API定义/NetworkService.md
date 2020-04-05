@@ -1,4 +1,29 @@
-# 说明
+# API 概要
+## Transpp
+| 序号 | 名称                 | 函数签名                          |
+|---------|---------------------|----------------------------------|
+| 1   | 发送数据             | `send_message(targets:Vec<PeerId>, alpha:usize, ttl:usize, data:Vec<u8>)`        |
+| 2   | 设置接收事件流         | `register_event_stream( subname:&str)->  mpsc::UnboundedReceiver<TransppEvent>` |
+
+## Groupset
+
+| 序号 | 名称                 | 函数签名                          |
+|-----|---------------------|----------------------------------|
+| 1   | 加入分组            | `join_group(group_name:&str, min_peers_required:usize)`        |
+| 2   | 获取分组节点         | `get_group_peers(group_name:&str)-> Vec<PeerId>` |
+| 3   | 退出分组         | `leave_group(group_name:&str)` |
+| 4   | 跟踪分组         | `trace_group(group_name:&str)` |
+| 5   | 停止跟踪分组         | `untrace_group(group_name:&str)` |
+| 6   | 向分组发送数据         | `group_message(group_name:&str,data:Vec<u8>)->Result<usize,Error>` |
+| 7   | 设置接收事件流          | `register_event_stream()-> mpsc::UnboundedReceiver<GroupSetEvent>` |
+
+## DelaySend
+
+| 序号 | 名称                 | 函数签名                          |
+|-----|---------------------|----------------------------------|
+| 1   | 延时组播            | `delay_send_groups( group_name:Vec<&str>, data_id:Vec<u8>, delay:Duration, weight:usize,data:Vec<u8>) ->Reult<State,Error>` |
+
+# 详细描述
 NetworkService是提供给就应用层的，包含了在框架中的Transpp和GroupSet两个部分
 ## Transpp
 ### 发送数据
@@ -70,46 +95,47 @@ GroupSet分组是自由设置的功能，通过DHT网络中的StartProvider进�
 #### 返回值
 无
 
-### 监视分组
+### 跟踪分组
+由于读取分组信息是异步的，这样如果节点不在分组里，当节点想要给分组发送数据的时候，本地的分组信息可能是空的，需要发现/回应后再次发送数据，这样的话，数据发送的延时会增加，失败率会升高。可以使用监视分组来解决这个问题，节点一旦开始监视分组，就会定时重复查询该分组的provider信息，这样节点就可以根据到这个分组内的节点信息，当需要发送数据时，直接向该分组的节点发送即可。与加入分组最大的差别是节点本身并不加入此分组。
 #### 功能描述
-当节点需要离开某个分组时，调用该函数退出，该函数实现两个功能：
-1. 停止对外广播自身在该分组内
-2. 断开与该分组内的节点的连接
+节点开始定时查询该分组的提供者的节点信息：
+1. 启动定时器查询分组的提供者节点信息
+2. 缓存这些节点信息
 #### 函数签名
-`leave_group(group_name:&str)`
+`trace_group(group_name:&str)`
 #### 参数
-* **group_name**需要离开的分组名称
+* **group_name**要跟踪的分组名称
 #### 返回值
 无
 
-### 退出分组
+### 停止跟踪分组
 #### 功能描述
-当节点需要离开某个分组时，调用该函数退出，该函数实现两个功能：
-1. 停止对外广播自身在该分组内
-2. 断开与该分组内的节点的连接
+当节点不再需要向某个分组发送数据时，调用该函数停止跟踪分组节点，该函数实现两个功能：
+1. 停止查询分组的定时器
+2. 删除缓存的分组信息
 #### 函数签名
-`leave_group(group_name:&str)`
+`untrace_group(group_name:&str)`
 #### 参数
-* **group_name**需要离开的分组名称
+* **group_name**需要停止观察的分组名称
 #### 返回值
 无
+
 ### 向分组广播数据
 #### 功能描述
-通过此功能，应用层可以在不知道分组中节点信息的情况下，向分组进行广播。注意，调用此功能时，并不要求节点一定在分组内。
+通过此功能，应用层可以在不知道分组中节点信息的情况下，向分组进行广播。注意，调用此功能时，
+1. 要么节点已经加入分组
+2. 要么节点已经跟踪分组
+否则会返回unknown_group的错误。
 #### 函数签名
-`group_message(group_name:&str,data:Vec<u8>,timeout:Duration)->usize`
+`group_message(group_name:&str,data:Vec<u8>)->Result<usize,Error>`
 #### 参数
 * **group_name**： 分组名称
 
 * **data**： 需要传输的数据
-* **timeout**： 超时时间，如果在指定的时间范围内，没有向组内alpha个节点发送该数据，那么就认为该数据未能发送成功。
 #### 返回值
 * **usize**: 用于发送结果的数据帧指示,是一个从0开始的序列号
 #### 说明
-向分组进行广播考虑并处理以下的情况：
-1. 广播时，本节点已经不在分组内了
-2. 广播时，本节点尚未查询过该分组的信息或是该分组的节点信息过少
-因此，向分组广播时，我们需要设置一个超时定时器，然后需要在一定的时候内
+由[libp2p-kad说明](../../../Substrate代码研究/libp2p代码研究/../libp2p研究/libp2p-kad.md)可知，系统中将缓存0-K个属于该分组的节点，当调用此函数时，如果系统中缓存的节点个数小于alpha个，那么将返回错误，否则返回一个确定的值，这个值可以被上层用于处理数据回应之类的。
    
 
 ### 设置接收事件流
@@ -122,29 +148,21 @@ GroupSet分组是自由设置的功能，通过DHT网络中的StartProvider进�
 #### 返回值
 返回一个mpsc::UnboundedReceiver<GroupSetEvent>，需要使用future/poll机制来实现数据读取。
 
-### 延时转发
+## DelaySend
+### 延时w分组广播
+延时转发应用的链上消息，链上的节点总是分组的，因上延时转发只能按分组发送
 #### 函数签名
-`delay_send(targets:Vec<PeerId>,data_id:Vec<u8>,delay:Duration,weight:usize,data:Vec<u8>)`
+`delay_send_groups(group_name:Vec<&str>,data_id:Vec<u8>,delay:Duration,weight:usize,data:Vec<u8>)->Reult<State,Error>`
 #### 参数
-   **targets**:一组目标节点  
-   **data_id**:数据标识  
-   **delay**:需要延时的时间  
-   **weight**:权重  
-   **data**:需要发送的数据  
-#### 返回值
-   Accepted,Replaced,Discard：分别代表，数据被接受，数据被接受并且替换了原有的数据，本数据被抛弃
-
-#### 函数签名
-`delay_send_group(group_name:&str,data_id:Vec<u8>,delay:Duration,weight:usize,data:Vec<u8>)`
-#### 参数
-   **group_name**:所需要发送的分组  
+   **group_name**:所需要发送的分组，可以是多个
    **data_id** :数据标识  
    **delay**:需要延时的时间  
    **weight**:权重  
    **data**:需要发送的数据  
 #### 返回值
    Accepted,Replaced,Discard：分别代表:数据被接受，数据被接受并且替换了原有的数据，本数据被抛弃
-
+#### 说明
+数据标识由应用确定，DelaySend模块根据数据标识来确定某个数据是否需要根据权重被替换
 
 ## 不常用的API
 ### 请求进行路由发现
