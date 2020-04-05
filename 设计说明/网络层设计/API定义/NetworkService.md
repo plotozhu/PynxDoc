@@ -23,8 +23,14 @@
 |-----|---------------------|----------------------------------|
 | 1   | 延时组播            | `delay_send_groups( group_name:Vec<&str>, data_id:Vec<u8>, delay:Duration, weight:usize,data:Vec<u8>) ->Reult<State,Error>` |
 
+## 路由相关
+| 序号 | 名称                 | 函数签名                          |
+|-----|---------------------|----------------------------------|
+| 1   | 请求进行路由发现            | `find_route(target:PeerId, alpha usize, ttl:usize,force:bool) ->Result<bool,Error>` |
+| 1   | 获取路由表项            | `get_route_item(target:PeerId)->Option<Vec<RouteItem>>` |
+
 # 详细描述
-NetworkService是提供给就应用层的，包含了在框架中的Transpp和GroupSet两个部分
+NetworkService是网络层提供给应用层的，包含了在框架中的Transpp和GroupSet两个部分
 ## Transpp
 ### 发送数据
 #### 功能描述
@@ -149,7 +155,7 @@ GroupSet分组是自由设置的功能，通过DHT网络中的StartProvider进�
 返回一个mpsc::UnboundedReceiver<GroupSetEvent>，需要使用future/poll机制来实现数据读取。
 
 ## DelaySend
-### 延时w分组广播
+### 延时分组广播
 延时转发应用的链上消息，链上的节点总是分组的，因上延时转发只能按分组发送
 #### 函数签名
 `delay_send_groups(group_name:Vec<&str>,data_id:Vec<u8>,delay:Duration,weight:usize,data:Vec<u8>)->Reult<State,Error>`
