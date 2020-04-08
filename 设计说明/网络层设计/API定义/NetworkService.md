@@ -1,9 +1,26 @@
 # API 概要
-## Transpp
+## Transp2p
+### 公用数据类型
+```rust
+pub struct Transp2pEvent<'a>{
+   tags:Cow<'a,str>,
+   engine_id:Cow<'a,str>,
+   src:PeerId,
+   target:PeerId,
+   hash:Vec<u8>,
+}
+```
+* tags是该数据帧的标识，一般用于组识别，可以是多个，使用,分开
+* engine_id是数据帧的类型标志，一般用于应用层
+* 这个事件上传时，只上报hash，如果应用层需要使用实际的数据时，调用get_data来获取数据     
+* 两种情况下会上传数据事件：自身地址是target，或者设置了监听相应的tags
+### API 接口
 | 序号 | 名称                 | 函数签名                          |
 |---------|---------------------|----------------------------------|
-| 1   | 发送数据             | `send_message(targets:Vec<PeerId>, alpha:usize, ttl:usize, data:Vec<u8>)`        |
-| 2   | 设置接收事件流         | `register_event_stream( subname:&str)->  mpsc::UnboundedReceiver<TransppEvent>` |
+| 1   | 发送数据             | `send_message(targets:Vec<PeerId>, alpha:usize, ttl:usize, tag:Cow<'a,&[u8]>,engine_id:Cow<'a,&[u8]>,data:Arc<RwLocK<Vec<u8>>>)`        |
+| 2   | 设置接收事件流        | `register_event_stream( tags:Cow<'a,str>)->  mpsc::UnboundedReceiver<Transp2pEvent>` |
+| 3   | 注册监听的tags       | `hook_tags( tags:Cow<'a,str>)->  Cow<'a,str>` |
+| 4   | 清除监听的tags       | `remove_tags( tags:Cow<'a,str>)->  Cow<'a,str>` |
 
 ## Groupset
 
@@ -31,7 +48,7 @@
 
 # 详细描述
 NetworkService是网络层提供给应用层的，包含了在框架中的Transpp和GroupSet两个部分
-## Transpp
+## Transp2p
 ### 发送数据
 #### 功能描述
 发送数据是指向某个特定的PeerId发送消息，这个PeerId可能是邻节点，也可能不是邻节点。如果不是邻节点，会先进行一次路由发现，然后再发送数据。此处并没有发送成功与否的回应，应用在需要时，可以添加发送/回应/超时重发的机制来实现可靠的数据传输。  
@@ -54,12 +71,13 @@ NetworkService是网络层提供给应用层的，包含了在框架中的Transp
 #### 功能描述
 模块通过事件机制向上层汇报信息，需要管理事件的上层应用，需要注册一个事件接收流，当事件发生时，模块向该流推送相应的事件消息
 #### 函数签名
-`register_event_stream(subname:&str)-> mpsc::UnboundedReceiver<TransppEvent>`
+`register_event_stream(tags:Cow<'a,str>)-> mpsc::UnboundedReceiver<TransppEvent>`
 #### 参数
-   subname:一个字符串，用于不用的应用接收不同的流，只有属于该流的事件才会被推送。
+   tags:一个字符串，用于不用的应用接收不同的流，只有属于该流的事件才会被推送。
 #### 返回值
 返回一个mpsc::UnboundedReceiver<TransppEvent>，需要使用future/poll机制来实现数据读取。
-
+#### 附加说明
+tags是需要监控的标识，在两种情况下Transp2p会推送数据
 
 ## GroupSet
 GroupSet通过KAD网络中的Start/Get Provider来实现

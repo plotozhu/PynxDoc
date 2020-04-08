@@ -281,4 +281,7 @@ Swarm需要三个参数：transport/Behaviour/localid，最后一个很容易理
 一个连接下可以支持多个虚拟子流，这个实现最典型的是KAD网络，因为KAD网络本身不需要支持长连接，所有的Ping/Pong，Find/Resp都是在一段时间后就可以结束。这种情况下，最理想的是使用单次的非流式结构，而libp2p是建立在流式工作的基础上的，为了维护多次的连接，并且降低连接/断开成本，可以使用虚拟子流。
 
 ## 结论
-可以看出，自定义Behaviour/ProtocolsHandler是一件非常复杂的工作，所幸在substrate里，提供了一个GenericProto的类，来简化自定义behaviour的工作
+可以看出，自定义Behaviour/ProtocolsHandler是一件非常复杂的工作，所幸在substrate里，提供了一个GenericProto的类，来简化自定义behaviour的工作。  
+更进一步地，substrate的network层提供了register_notification_protocol的方法来实现更简化的扩展,这个是在protocol层上实现的
+
+# 使用Protocol来扩展
