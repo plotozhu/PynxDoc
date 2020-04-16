@@ -1,0 +1,4 @@
+# 说明
+Pool是ValidatePool的包装，在ValidatePool的基础上，对外提供接口服务。由于ValidatedPool对象使用Arc包裹，同时ValidatePool中的数据通过RwLock包裹了，因此Pool提供的接口可以被多个线程任意调用。
+
+理解了上述的Pool的设计模式，也就可以明确Pool是ValidatedPool上的一层包装。
