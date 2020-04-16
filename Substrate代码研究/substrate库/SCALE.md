@@ -128,7 +128,7 @@ assert_eq！（EnumType :: decode（＆mut dz）.ok（），无）;
  # fn main() { }
  ```
 
-###使用CompactAs的类型
+### 使用CompactAs的类型
 ```rust
  # // Import macros if derive feature is not used.
  # #[cfg(not(feature="derive"))]
