@@ -30,4 +30,4 @@ proposal.dispatch(system::RawOrigin::Signed(who).into())
 proposal.dispatch(system::RawOrigin::None.into())
 ```
 
-您可以查看[sudo模块]来得到这个的一个可行实现。
+您可以查看[sudo模块]来得到一个可行的实现。
