@@ -23,6 +23,12 @@ Client对链的历史数据读取、从哈希到blockNumber或者反之，这些
 与现有的执行方案一致，  Client最终是通过Callable和Appliable 来执行所有的操作，因此需要做以下两个处理：
 1. 定义新的Callable和Appliable
 2. 根据不同的类型，在生成Client时配置不同的Callable
+一个client具有四种泛型属性模板
+* Backend 后端数据存储类型，这个主要包含了链的处理，有链的存储、导入、区块头的管理等。
+* E      Executor 执行类型
+* BlockT 区块的类型
+* RuntimeApi: Runtime提供的API接口
+
 
 
 ## 定制runtime
