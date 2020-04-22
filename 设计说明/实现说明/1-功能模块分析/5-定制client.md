@@ -12,6 +12,7 @@ Client对链的历史数据读取、从哈希到blockNumber或者反之，这些
 
 # Client定制
 
+## Client类型说明
 参考TFullClient和TLightClient
 
 我们有三种类型的Client:
@@ -36,10 +37,26 @@ Client对链的历史数据读取、从哈希到blockNumber或者反之，这些
 1. Beacon Runtime
 2. Relay Runtime
 3. Shard Runtime
+## 绑定runtime到executor
+绑定的过程是通过native_executor_instance实现
+```rust
+// Our native executor instance.
+native_executor_instance!(
+	pub Executor,
+	shard_runtime::api::dispatch,
+	shard_runtime::native_version,
+);
 
+```
+因此我们需要三次使用这个，生成Executor
+
+## 创建client
 现有的生成不同的Client的方案是在定义ServiceBuilder时，使用不同的Runtime:
 ```rust 
 12let builder = sc_service::ServiceBuilder::new_full::<
             node_template_runtime::opaque::Block, node_template_runtime::RuntimeApi, crate::service::Executor
         >($config)?
 ```
+我们需要修改接口，传入9种模板类型，在service中创建三个builder
+
+## 绑定transaction-pool
