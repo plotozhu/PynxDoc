@@ -2,7 +2,7 @@
 BasicPool创建了一个RevalidateQueue，这个队列创建了一个后台的RevalidationWorker。
 <span id="basic_pool">BasicPool用法之一：</span>
 1. 实现`MaintainedTransactionPool`,监控链的NewBlock和Finalized两个事件，NewBlock事件时，调用：
-   1. ready_poll处理需要在本区块处理的交易
+   1. `ready_poll`处理需要在本区块处理的交易
    2. `revalidation_queue.revalidate_later`清除不需要的交易
 ## 基本类
 ### `BasicPool`
@@ -16,11 +16,11 @@ BasicPool创建了一个RevalidateQueue，这个队列创建了一个后台的Re
     ready_poll: Arc<Mutex<ReadyPoll<ReadyIteratorFor<PoolApi>, Block>>>,
 } 
 ```
-pool：实际存储交易的交易池
-api： 一个PoolApi对象,用于对外供api接口
-revalidation_strategy： 重新验证的策略
-revalidation_queue：重新验证的队列（详情见[Revalidation](#repla)。
-ready_poll：一个可以被多个线程调用的`ReadyPoll`对象
+* pool：实际存储交易的交易池
+* api： 一个PoolApi对象,用于对外供api接口
+* revalidation_strategy： 重新验证的策略
+* revalidation_queue：重新验证的队列（详情见[Revalidation](#repla)。
+* ready_poll：一个可以被多个线程调用的`ReadyPoll`对象
 
 BasicPool提供了如下的接口
 #### 创建
