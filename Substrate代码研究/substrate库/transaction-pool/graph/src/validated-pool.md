@@ -19,7 +19,7 @@ pub enum ValidatedTransaction<Hash, Ex, Error> {
 * Invalid 不合法的
 * Unknown 未知的，无法确定的
 
-# ValidatedTransaction 特质
+# ValidatedTransaction 特征
 ##  验证
 ```rust 
 pub fn valid_at(

@@ -33,15 +33,15 @@ decl_module! {
 ```
 
  声明中和区块头一起，包括：  
- * `Module`: 由宏生成的结构，实现了 `Trait`特质。
+ * `Module`: 由宏生成的结构，实现了 `Trait`特征。
  * `Call`: 每个托盘生成的枚举，实现了[`Callable`](./dispatch/trait.Callable.html).
  * `origin`:  `T::Origin`的别名, 由[`impl_outer_origin!`]宏声明(./macro.impl_outer_origin.html) 。
  * `Result`: 托盘函数期望的返回类型
 
  可分派函数的第一个参数必须是`origin`。
  
- ### 缩写例子
- 宏总是将缩写过的函数自动扩展成返回[`DispatchResult`] 类型，下面示例中的两个函数是等价的：
+ ### 简写例子
+ 可分派函数可以简写，宏总是将简写过的函数自动扩展成返回[`DispatchResult`] 类型，下面示例中的两个函数是等价的：
   ```rust
  #[macro_use]
  extern crate frame_support;

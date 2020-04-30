@@ -1,7 +1,7 @@
 # 概述
 Transp2p模块里包含四个部分：如下图所示：
 ![](transp2p.png)
-从图上可以看到,Transp2p内需要使用RouteTab和SwarmKAD两个对象的实例，完成了RouteManage/Transpp两个特质，并且需要实现NetworkBehaviour特性。
+从图上可以看到,Transp2p内需要使用RouteTab和SwarmKAD两个对象的实例，完成了RouteManage/Transpp两个特征，并且需要实现NetworkBehaviour特性。
 # Transp2p
 ## 数据结构
 ```rust 
@@ -99,7 +99,7 @@ pub struct RelayDataWrapper<B:Hash>{
 4. 在processed_cache中添加该(target_hash)信息
 
 
-## Transpp特质实现
+## Transpp特征实现
 ### 数据定义
 #### 数据缓存
 数据缓存是哈希/Vec<u8>的映射，用于存放已知的哈希值及其对应的数据，目前第一个版本使用LruCache，未来是否需要使用LruCache+db进行持久化存储？

@@ -76,7 +76,7 @@ pub enum OpaqueDigestItemId<'a> {
 #### `pub fn try_to<T: Decode>(&self, id: OpaqueDigestItemId) -> Option<T> {`
 
 ### 其他
-DigestItem同样实现了Encode和Decode特质
+DigestItem同样实现了Encode和Decode特征
 ### DigestItemRef接口
 与DigestItem的接口一致，实现了deref后同样的处理效果
 #### `pub fn as_changes_trie_root(&self) -> Option<&'a Hash> {`

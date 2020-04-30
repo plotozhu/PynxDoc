@@ -96,7 +96,7 @@
 
 ### 前提条件
 
- 显示如何为包含<INSERT_CUSTOM_PALLET_NAME>必要的导入，以及如果使用`INSERT_CUSTOM_PALLET_NAME`来派生你的托盘配置特质
+ 显示如何为包含<INSERT_CUSTOM_PALLET_NAME>必要的导入，以及如果使用`INSERT_CUSTOM_PALLET_NAME`来派生你的托盘配置特征
  具有`INSERT_CUSTOM_PALLET_NAME'特征的托盘配置特征。
 
 \```rust
