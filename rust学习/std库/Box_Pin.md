@@ -188,3 +188,10 @@ fn exploit_ref_cell<T>(rc: Pin<&mut RefCell<T>>) {
 在标准库中，指针类型通常没有结构化的钉定，因此他们不会提供钉定投射函数，这就是为什么`Box<T>: Unpin`保有了`T`的一切.这一切对于指针类型是有意义的，因为移动`Box<T>`并不会移动实际的`T`: 即使`T`不能，`Box<T>`仍然可以自由移动(所谓的：解钉)。实际上，即使是`Pin<Box<T>>` 和 `Pin<&mut T>`本身也总是`Unpin`特征的, 基于同样的原因： 它们的内容(the T)是钉定的，但是指针本身可以在不移动钉定数据的情况移动。对于`Box<T>` 和 `Pin<Box<T>>`, 内容是否钉定和指针是否钉定是完全独立的，意味着这是非结构化钉定。
 
 当和`Future`组合实现时,因为你需要获得钉定的引用来调用`poll`,嵌套的futures可能需要结构化的钉定。但是如果你的组合含有任何不需要“钉定”的数据时，你可以使这些字段非结构化钉定，从而可以即合我在只有`Pin<&mut Self>`的时候，自由地使用一个可变引用来访问他们。(例如在你自己的`poll`实现里).
+
+
+# 扩展阅读
+
+### [rust async:pin 概念解析](https://zhuanlan.zhihu.com/p/67803708)
+
+### [关于future的一个很好的说明](https://stevenbai.top/rust/futures_explained_in_200_lines_of_rust/)
