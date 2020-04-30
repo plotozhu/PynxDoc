@@ -50,6 +50,6 @@ pub struct Listener<H: hash::Hash + Eq, C: ChainApi> {
 交易因为无效而被移除时发生，事件发送给对应的watcher
 
 ## pool.rs
-首先定义了ChainApi的特质  
+首先定义了ChainApi的特征  
 然后定义了一个Pool类型，这个类型中只有一个属性，就是validated_pool
 

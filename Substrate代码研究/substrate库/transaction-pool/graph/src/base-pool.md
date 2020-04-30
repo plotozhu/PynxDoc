@@ -30,8 +30,8 @@ pub struct Transaction<Hash, Extrinsic> {
 ```
 从上述的Transaction定义可以看出，此处定义的交易是有状态的交易，除了原始的交易信息之外，还包括了交易的其他信息。
 
-Transaction其实代表了已经被纳入交易池的交易，因此它实现了InPoolTransaction的特质
-* InPoolTransaction特质 
+Transaction其实代表了已经被纳入交易池的交易，因此它实现了InPoolTransaction的特征
+* InPoolTransaction特征 
   * data:         返回交易的extrinsic数据
   * hash:         返回交易的哈希值
   * priority:     返回优先级
@@ -41,8 +41,8 @@ Transaction其实代表了已经被纳入交易池的交易，因此它实现了
   * is_propagable:返回是否需要传播
 
 Transaction同时还实现了
-* AsRef 特质，可以把Transaction当前一个Extrinsic返回
-* Clone 特质，可以实现Transaction的克隆
+* AsRef 特征，可以把Transaction当前一个Extrinsic返回
+* Clone 特征，可以实现Transaction的克隆
 
 #### 交易的状态
 有效的交易具有两种状态：就绪态和未来态

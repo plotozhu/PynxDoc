@@ -129,7 +129,7 @@ pub struct ChangesTrieConfigurationRange<Number, Hash> {
 }
 ```
 
-### ChangesTrieConfiguration的特质
+### ChangesTrieConfiguration的特征
 * `pub fn new(digest_interval: u32, digest_levels: u32) -> Self` 创建
 * `pub fn is_digest_build_enabled(&self) -> bool`是否使能
 * `pub fn is_digest_build_required_at_block<Number>(`在给定的区块上是否需要创建digest

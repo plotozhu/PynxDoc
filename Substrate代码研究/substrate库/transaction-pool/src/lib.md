@@ -107,8 +107,8 @@ struct RevalidationWorker<Api: ChainApi> {
 * members：根据交易哈希查询应该在哪个高度有效
 
 ## 辅助类
-### TransactionPool特质
-BasicPool实现了TransactionPool特质。
+### TransactionPool特征
+BasicPool实现了TransactionPool特征。
 #### submit_at
 ```rust
 fn submit_at(
@@ -148,7 +148,7 @@ struct ReadyPoll<T, Block: BlockT> {
 
 ### `RevalidationType`
 ### <span id="revalidation"> `revalidatetion`</span>
-`revalidation.rs`文件里是与验证有关的特质和结构类型：
+`revalidation.rs`文件里是与验证有关的特征和结构类型：
 #### `WorkerPayload`
 这个表征了工作线程的工作任务
 ```rust
@@ -179,8 +179,8 @@ async fn batch_revalidate<Api: ChainApi>(
 * batch 是一组待再验证的交易哈希
 
 
-## 实现的特质
-BasicPool实现了两个最主要的特质：
+## 实现的特征
+BasicPool实现了两个最主要的特征：
 * `TransactionPool` 最基本的交易池的接口实现
   * `submit_at`  提交一组在某个区块后生效的的交易
   * `submit_one` 提交一个在某个区块后生效的的交易
@@ -193,5 +193,5 @@ BasicPool实现了两个最主要的特质：
   * `ready_transaction`  某交易是否已经就绪，如果未就续，返回None
   * `ready_at` 这个将返回一个future,在某个区块时有效的交易
   * `ready` 返回当前区块时，已经就绪的交易
-* `MaintainedTransactionPool`这个特质自动处理区块的两个事件，NewBlock区块和Finalized事件，在事件到达时，对交易池作一些处理（见[BasicPool用法之一](#basicpool))的说明
+* `MaintainedTransactionPool`这个特征自动处理区块的两个事件，NewBlock区块和Finalized事件，在事件到达时，对交易池作一些处理（见[BasicPool用法之一](#basicpool))的说明
 
