@@ -195,3 +195,10 @@ fn exploit_ref_cell<T>(rc: Pin<&mut RefCell<T>>) {
 ### [rust async:pin 概念解析](https://zhuanlan.zhihu.com/p/67803708)
 
 ### [关于future的一个很好的说明](https://stevenbai.top/rust/futures_explained_in_200_lines_of_rust/)
+看完上面两个后，再看[这一个](https://learnku.com/docs/async-book/2018/pinning/4796)可以对异步和PIN有一个更深入的了解。（注，这个用于简单的理解，其FUTURE是0.1版本的，所以仅用于参考)
+
+为什么在Future中需要使用Pin,看这篇文章
+### [rust异步编程](https://www.rectcircle.cn/posts/rust%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/)
+
+最后，再回到Future及其实现最初的实现者上来：
+### [TokIO说明](https://tokio-zh.github.io/document/io/async_read_write.html)
