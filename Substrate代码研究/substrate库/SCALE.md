@@ -304,3 +304,65 @@ enum IntOrBool {
 * Golang: ChainSafe/gossamer
 * C++: soramitsu/scale
 *  JavaScript: polkadot-js/api
+
+# EncodeLike的说明翻译和理解发
+    这是一个标记特征，它告诉编译器一个类型编码与另一个具有相同的表示形式。
+    例如：`Vec<u8>` 和`&[u8]`具有相同的编码表现形式，所以：
+ ## 例子
+
+```rust
+# use parity_scale_codec::{EncodeLike, Encode};
+ fn encode_like<T: Encode, R: EncodeLike<T>>(data: &R) {
+     data.encode(); // Valid `T` encoded value.
+ }
+
+ fn main() {
+     // Just pass the a reference to the normal tuple.
+     encode_like::<(u32, u32), _>(&(1u32, 2u32));
+     // Pass a tuple of references
+     encode_like::<(u32, u32), _>(&(&1u32, &2u32));
+     // Pass a tuple of a reference and a value.
+     encode_like::<(u32, u32), _>(&(&1u32, 2u32));
+ }
+```
+## 警告
+ 关系是不对称的, `T` 实现了 `EncodeLike<U>` 并不表示 `U` 具有和 `T`同样的表现形式.  
+ 比如我们可以想象一个非零的整数可以被编码成整数（按照整数的方案进行编码），但是反过来却不行。
+
+## 限制
+不是所有的EncodeLike实现形式都已经实现了（例如： `Box<Box<u32>>`并没有实现`EncodeLike<u32>`）。要绕过这个问题，要么打开一个PullRequest要求添加一个组合或者使用[`Ref`](./struct.Ref.html)引用包裹器来定义你自己的包裹器，并且在上面实现实现`EncodeLike`，就象这样：
+ ```rust
+# use parity_scale_codec::{EncodeLike, Encode, WrapperTypeEncode};
+ fn encode_like<T: Encode, R: EncodeLike<T>>(data: &R) {
+     data.encode(); // Valid `T` encoded value.
+ }
+
+ struct MyWrapper<'a>(&'a (Box<Box<u32>>, u32));
+ impl<'a> core::ops::Deref for MyWrapper<'a> { // Or use derive_deref crate
+     type Target = (Box<Box<u32>>, u32);
+     fn deref(&self) -> &Self::Target { &self.0 }
+ }
+
+ impl<'a> parity_scale_codec::WrapperTypeEncode for MyWrapper<'a> {}
+ impl<'a> parity_scale_codec::EncodeLike<(u32, u32)> for MyWrapper<'a> {}
+
+ fn main() {
+     let v = (Box::new(Box::new(0)), 0);
+     encode_like::<(u32, u32), _>(&MyWrapper(&v));
+ }
+ ```
+ ## 引用包裹器
+ 实现EncodeLike的引用包裹器，把任何外面的包裹器按照内部的类型进行编码
+
+ ### 例子
+
+ ```rust
+ # use parity_scale_codec::{EncodeLike, Ref};
+ fn foo<T: EncodeLike<u8>>(t: T) -> T {
+     store_t(Ref::from(&t)); // Store t without moving it, but only using a reference.
+     t
+ }
+
+ fn store_t<T: EncodeLike<u8>>(t: T) {
+ }
+ ```
