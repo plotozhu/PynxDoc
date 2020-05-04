@@ -61,9 +61,9 @@ substrate 运行时 api 是节点和运行时之间的关键接口，每个进�
  # fn main() {}
  ```
 
- # 使特征以运行时api实现的标签
+ # 使特征会以运行时api实现的标签
 
-所以使用此宏的特征，需要使用[`decl_runtime_apis!`](macro.decl_runtime_apis.html)来声明，特征的实现应该依照 [`decl_runtime_apis!`](macro.decl_runtime_apis.html)宏的声明，除此之外，泛型`Block`类型需要作为每个运行时的API特征的第一个泛型参数。当特片作为一个运行时api时，需要通过一个路径来引用：比如 `impl my_trait::MyTrait for Runtime`。 宏将会使用此路径来访问运行时侧的特征。
+所有使用此宏的特征，需要使用[`decl_runtime_apis!`](macro.decl_runtime_apis.html)来声明，特征的实现应该依照 [`decl_runtime_apis!`](macro.decl_runtime_apis.html)宏的声明，除此之外，泛型`Block`类型需要作为每个运行时的API特征的第一个泛型参数。当特片作为一个运行时api时，需要通过一个路径来引用：比如 `impl my_trait::MyTrait for Runtime`。 宏将会使用此路径来访问运行时侧的特征。
 这个宏同样产生一个客户侧访问的、`RuntimeApi`类型的api，这个类型隐藏在`RuntimeApi`被称为`std`的`feature`之后。
 
 为了暴露出所有的实现的api特征，生成了常量`RUNTIME_API_VERSIONS`。该常量可以用来初始化`RuntimeVersion`的字段`apis`。
