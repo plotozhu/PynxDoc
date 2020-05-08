@@ -114,7 +114,7 @@ decl_module! {
  # fn main() {}
  ```
 
- ## 多实例模埠例子
+ ## 多实例模块例子
 
  可以创建在一个runtime支持多个实例的substrate模块，例如，可以多次添加[Balances module](../pallet_balances/index.html) 到你的runtime以实现多个独立数字资产的区块链系统。这里是一个如何通过 `decl_module!` 宏声明这个模块的例子。
 

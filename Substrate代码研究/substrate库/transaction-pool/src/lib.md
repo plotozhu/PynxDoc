@@ -86,7 +86,7 @@ pub struct RevalidationQueue<Api: ChainApi> {
 #### 延时激活
 异步的，对一组交易实现再激活的函数，如果：
 1. 队列有后台再激活线程，直接返回（再
-2. 队列如果没有再激少后台线程，等到实际工作执行后再返回
+2. 队列如果没有再激活后台线程，等到实际工作执行后再返回
 `fn revalidate_later(&self, at: NumberFor<Api>, transactions: Vec<ExHash<Api>>) {`
 注意，参数中的transactions是交易的哈希值，这意味着这个函数是对交易池内现有的交易进行再激活处理
 ### `RevalidationWorker`
@@ -189,7 +189,7 @@ BasicPool实现了两个最主要的特征：
   * `status`  返回交易池的状态
   * `import_notification_stream` 注册一个交易被导入到交易池时的通知事件
   * `hash_of`  根据交易查询对应的哈希
-  * `on_broadcasted` 通知交易池，某些交易已经被传播（交易池中需要更新交易的状态，是否被传播过也是一种痒）
+  * `on_broadcasted` 通知交易池，某些交易已经被传播（交易池中需要更新交易的状态，是否被传播过也是一种状态）
   * `ready_transaction`  某交易是否已经就绪，如果未就续，返回None
   * `ready_at` 这个将返回一个future,在某个区块时有效的交易
   * `ready` 返回当前区块时，已经就绪的交易

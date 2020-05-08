@@ -150,7 +150,8 @@ pub trait NativeExecutionDispatch: Send + Sync {
 	fn native_version() -> NativeVersion;
 }
 ```
-上述中的`Externalities`顾名思义就是外部存储数据的接口。
+上述中的`Externalities`顾名思义就是扩展操作的接口：链上(wasm)代码是在虚拟机中执行的，虚拟机除了提供内存/CPU（指令）外，还提供了相应的运行库供链上代码调用，在现有的实现中，除了默认的substrate的实现所提供的运行库之外，还提供了默认的扩展库（Http操作和localstorage数据读写），这些扩展操作都放在externalities里。  
+当然，上述描述中还有一个ExtendHostFunctions，这个是用户自定义的提供给链上操作的api实现。这个详细内容查看下面的说明。
 
 实现`NativeExecutionDispatch`是通过`native_executor_instance`宏来实现的
 #### 例如：
