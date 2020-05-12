@@ -179,3 +179,57 @@ decl_module! {
 
  * `offchain_worker`: 在一个区块开始的时候执行，提供一个为未来的区块使用的外源。使用此函数将实现
  [`OffchainWorker`](./traits/trait.OffchainWorker.html) 特征。
+
+ ## 宏展开
+
+```rust
+pub struct Module<T: Trait> for enum Call where origin: T::Origin, T::AccountId: From<u32> {
+	pub fn call_1(....) {
+
+	}
+	...
+}
+//Struct展开
+pub struct Module<T>(sp_std::marker::PhantomData<(T)>)
+where origin: T::Origin, 
+T::AccountId: From<u32>;
+
+//几个预定义的处理的展开
+//...
+impl<T:Trait> OnFinalize<T::BlockNumber> for Module<T> 
+where origin: T::Origin, 
+T::AccountId: From<u32>{
+	//...
+}
+//...
+
+//CALL展开
+impl<T:Trait> Module<T> 
+	where origin: T::Origin, 
+	T::AccountId: From<u32>{
+	pub fn call_1(origin:T::Origin)->DispatchResult{
+		.....
+	}
+}
+```
+
+```rust 
+	impl_outer_dispatch! {
+		pub enum OuterCall for TraitImpl where origin: u32 {
+			self::Test,
+		}
+	}
+
+//[#...]
+pub enum OuterCall { //(1)
+	Test(dispatch::CallableCallFor<Test,TraitImpl>)
+}
+
+// and 
+pub type CallableCallFor<A, T> = <A as Callable<T>>::Call;
+
+// (1)相当于：
+pub enum OuterCall {
+	Test((Test as Callbale<TraitImpl>::Call))
+}
+```	
