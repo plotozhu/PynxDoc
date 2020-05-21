@@ -184,8 +184,36 @@ Swarm需要三个参数：transport/Behaviour/localid，最后一个很容易理
 2. 创建一个数据结构，将所有的子behaviour放到结构体内，并且使用`#[derive(NetworkBehaviour)]`宏来自动对所有的字段进行代理，注意，如果结构体内有没有实现Networkbehaviour的字段，需要使用`#[behaviour(ignore)]`来禁止该字段产生代理
 3. 使用`NetworkBehaviourEventProcess`来处理所有子behaviour对外的事件
 4. 用标准语句实现poll
-   
-经过处理，将会产生如下的效果：
+### 处理流程详细描述
+![](behaviour_run.png)
+实际的运行中，通过调用swarm::next_event实现了poll,显然，poll需要做两件事：
+1. 调用libp2p的poll，让p2p实现状态转移，并且获取p2p层的事件，给behaviour
+2. 调用behaviour的poll，让behaviour进行状态转移，并且获取behaviour相应的事件，behaviour产生的事件有两种：
+   1. 需要发送给p2p的，这个目前就是有5种(NetworkBehaviourAction)
+   2. 需要更上层处理的
+上图描述了处理的过程：
+* 从libp2p获取消息并且处理的过程
+1. 在调用libp2p的poll的时候，所获得的数据（NetworkBehaviourAction）通过Behaviour中内部的event_dispatcher，分发给了所有的behaviour实例，这种（NetworkBehaviourAction）数据有两种；
+   1. 第一种是网络层的信息（连接断开等），分发给所有的behaviour实例
+   2. 第二种是和协议相关的数据，这个只分发给对应的behaviour实例
+2. behaviour实例是通过inject_event获得并且进行处理的
+3. 由于事件的处理在poll中，必须是无阻塞的，因此当behaviour实例inject_event处理消息后，把处理的结果放入到events中去（参见behaviour 1)
+* 从Behaviour获取消息并且处理的过程
+1. 系统级的poll调用Behaviour的poll
+2. Behaviour的poll调用各个behaviour实例的poll，behaviour实例的poll会产生两种数据：
+   1. NetworkBehaviourAction，这个是请求libp2p需要做的动作，这个数据将会被放入events
+   2. 由各个behaviour实例定义的behaviour::Outcome的动作，这个动作需要由behaviour来处理
+3. poll从events获取需要libp2p处理的NetworkBehaviourAction数据，通过libp2p的inject_event发给libp2p底层
+4. Behaviour实现对每一种behaviour实例对象相应的`NetworkBehaviourEventProcess`，poll过程就使用`Behaviour::inject_event<Outcome>`实现对相应的从behaviour实例中输出的消息进行处理
+
+* **上述描述中的系统Poll的过程和Behaviour的过程可能与实际的过程略有出入，但是总体说明是正确的，这两个过程的细节等有空的时候再补充**
+
+* **另外思考：如果不同的behaviour实例之间需要进行通信，怎么办？** 
+  * 通过`event`让`Behaviour`的`NetworkBehaviourEventProcess`进行交互
+  * 
+
+### 抽象化及应用方案说明
+经过上述的处理后，应用层可以不考虑实际数据传输的过程，仅仅从behaviour实例的角度来考虑数据传输的过程。 为了更进一步地管理，在substrate中的Protocol下的GenericProtocol（Protocol本身是一个behaviour实例），又增加了子流的概念（substream)，下图是增加了substream的Protocol协议传输说明：
 1. Behaviour通过Poll产生的事件上，如果是SendEvent将会通过Swarm发送到流的对端
 2. 从流对接接收到的数据将会被自动处理分配给相应的子behaviour的ProtocolsHandle进行处理，处理方法是被poll时处理，如果poll产生了GenerateEvent，将会通过inject_event发送给子behaviour，如果是SendEvent，将会被发送到对端![](behaviour3.png)<center>图2</center>
 3. behaviour的poll函数同样对收到的GenerateEvent进行处理，如果要发送数据给对端，那么就通过在Poll中生成一个SendEvent，如果需要向外提供事件，就通过poll返回GenerateEvent

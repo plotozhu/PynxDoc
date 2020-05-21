@@ -295,25 +295,25 @@ where
     T: Transport,
     C: FnOnce(T::Output, ConnectedPoint) -> F + Clone,
     F: TryFuture<Ok = O>,
-    F::Error: Error, 
-[src]
-[ - ]
-[ + ]显示隐藏的未记录项目
-type Output = O
+    F::Error: Error,   
+[src]  
+[ - ]  
+[ + ]显示隐藏的未记录项目  
+type Output = O  
 type Error = EitherError<T::Error, F::Error>
 type Listener = AndThenStream<T::Listener, C>
-type ListenerUpgrade = AndThenFuture<T::ListenerUpgrade, C, F>
-type Dial = AndThenFuture<T::Dial, C, F>
-impl<T, F, D> Transport for Map<T, F>
-where
-    T: Transport,
-    F: FnOnce(T::Output, ConnectedPoint) -> D + Clone, 
-[src]
-[ - ]
-[ + ]显示隐藏的未记录项目
-type Output = D
-type Error = T::Error
-type Listener = MapStream<T::Listener, F>
+type ListenerUpgrade = AndThenFuture<T::ListenerUpgrade, C, F>  
+type Dial = AndThenFuture<T::Dial, C, F>  
+impl<T, F, D> Transport for Map<T, F>  
+where  
+    T: Transport,  
+    F: FnOnce(T::Output, ConnectedPoint) -> D + Clone,   
+[src]  
+[ - ]  
+[ + ]显示隐藏的未记录项目  
+type Output = D  
+type Error = T::Error  
+type Listener = MapStream<T::Listener, F>  
 type ListenerUpgrade = MapFuture<T::ListenerUpgrade, F>
 type Dial = MapFuture<T::Dial, F>
 impl<T, F, TErr> Transport for MapErr<T, F>
