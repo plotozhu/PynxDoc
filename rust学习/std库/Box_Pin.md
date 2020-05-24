@@ -25,7 +25,7 @@ fn swap_pins<T>(x: Pin<&mut T>, y: Pin<&mut T>) {
 ## Unpin --非钉定
 很多类型由于并不依赖需要固定的内存地址，因此即使已经被钉住时，也是可以自由移动的。 这些类型包括所有的基础类型 (例如 bool, i32, and 引用)以及仅仅由这些类型组成的类型。 不关心钉住的类型实现了Unpin（非钉定）这一自动特征, 丢弃了Pin<P>的功能。 对于非钉定的类型`T: Unpin`, `Pin<Box<T>> `和 `Box<T>`的功能是完全一致的,`Pin<&mut T>`和`&mut T`也是一样。
 
-注意，钉定和非钉定仅影响指向`P::Target`的类型，并不是被`Pin<P>`包含的`P`自身。例如，无论`Box<T>`是否是unpin都不会影响`Pin<Box<T>>`的行为（这里`T`是被指向的类型）。 即Pin<Box<T>>影响的是T，而不是Box<T>
+注意，钉定和非钉定仅影响指向`P::Target`的类型，并不是被`Pin<P>`包含的`P`自身。例如，无论`Box<T>`是否是unpin都不会影响`Pin<Box<T>>`的行为（这里`T`是被指向的类型）。 即`Pin<Box<T>>`影响的是T，而不是`Box<T>`
 
 
 ## 例子：自引用的结构类型
@@ -77,7 +77,7 @@ assert_eq!(still_unmoved.slice, NonNull::from(&still_unmoved.data));
 // let mut new_unmoved = Unmovable::new("world".to_string());
 // std::mem::swap(&mut *still_unmoved, &mut *new_unmoved);
 ```
-## 例子，侵入性的双向链表
+## 例子:侵入性的双向链表
 在一个侵入性的双向链表中，集合并不为实际的元素自身分配内存。 内存分配由客户代码控制，元素可能在栈中并且比集合自身存活的短。
 
 为了使这个集合工作，每个元素都有一个指向它的前线和后续元素的指针。 元素仅仅在它们已经被钉住的情况下才可以加入，因为移动元素将会导致指针失效。更进一步地，列表元素的丢弃特性的实现将会导致该元素的前一个和后一个节点把该元素从列表中删除。
