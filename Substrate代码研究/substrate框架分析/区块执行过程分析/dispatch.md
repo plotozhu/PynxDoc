@@ -41,7 +41,7 @@ decl_module! {
  可分派函数的第一个参数必须是`origin`。
  
  ### 简写例子
- 可分派函数可以简写，宏总是将简写过的函数自动扩展成返回[`DispatchResult`] 类型，下面示例中的两个函数是等价的：
+ 可分派函数可以简写，宏总是将简写过的函数自动扩展成返回[`DispatchResultWithPostInfo`] 类型，下面示例中的两个函数是等价的：
   ```rust
  #[macro_use]
  extern crate frame_support;
@@ -50,7 +50,7 @@ decl_module! {
  decl_module! {
  	pub struct Module<T: Trait> for enum Call where origin: T::Origin {
  		#[weight = 0]
- 		fn my_long_function(origin) -> dispatch::DispatchResult {
+ 		fn my_long_function(origin) -> dispatch::DispatchResultWithPostInfo {
 				// Your implementation
  			Ok(dispatch::CsaActionItem::from(()))
  		}
@@ -63,10 +63,11 @@ decl_module! {
  }
  # fn main() {}
  ```
+ `DispatchResultWithPostInfo`是带有PostInfo的分发返回值，它是`sp_runtime::DispatchResultWithInfo<crate::weights::PostDispatchInfo>;`的简写，如果需要更多的PostInfo信息，可以使用自定义的类来替换`crate::weights::PostDispatchInfo`
 ### 仅消耗注解中的部分重量
 默认每个可调用函数消耗所有的通过#[weight]注解的全部静态重量。然而存在仅应该消息这个注解中的一部分重量的用例。在那场景中，静态的重量按照单个可分派（函数）增加，最后的差值在dispatch后退回。
 
-为了实现这个特性，函数必须返回`DispatchResultWithPostInfo`而不是默认的`DispatchResult`，从而可以返回实际消耗的重量。想要在返回错误时消耗掉非默认的重量， 可以用[`WithPostDispatchInfo::with_weight`](./weight/trait.WithPostDispatchInfo.html) 实现带有重量信息参数的错误。
+为了实现这个特性，函数必须返回`DispatchResultWithPostInfo`而不是默认的`DispatchResult`，从而可以返回实际消耗的重量。想要在返回错误时消耗掉非默认的重量， 可以用[`WithPostDispatchInfo::with_weight`](./weight/trait.WithPostDispatchInfo.html) 实现带有重量信息参数的函数。
 
  ```rust
  #[macro_use]

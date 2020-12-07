@@ -30,20 +30,23 @@ pub struct NativeExecutor<D> {
 	wasm: WasmExecutor,
 }
 ```
+
 通过new生成一个NativeExecutor执行的对象，其过程如下：
 > 1. 获取sp_io::SubstrateHostFunctions获取一个`HostFunctions`对象
 > 2. 通过extend函数，将`D::ExtendHostFunctions::host_functions()`中获取的函数填充到host_functions中
 > 3. 使用这个扩展后的`HostFunctions`对象来创建wasm_executor
 > 4. 用`wasm_executor`来创建`NativeExecutor`对象，并且返回此对象
 
-**此处的D就是ServiceBuilder中的`TExecDisp`，即下面所述的[NativeExecutionDispatch](#span-id%22nativeexecutiondispatch%22nativeexecutiondispatchspan)**
+** 此处的D就是ServiceBuilder中的`TExecDisp`，即下面所述的[NativeExecutionDispatch](#span-id%22nativeexecutiondispatch%22nativeexecutiondispatchspan) **
 
 * HostFunctions是一组Function对象的集合的接口，用于获取所有的Function对象：
+
 ```rust
 fn host_functions() -> Vec<&'static dyn Function>;
 ```
 
 * Function是一个wasm函数的抽象特征：
+  
 ```rust 
 pub trait Function: MaybeRefUnwindSafe + Send + Sync {
 	/// 函数的名称
@@ -60,6 +63,7 @@ pub trait Function: MaybeRefUnwindSafe + Send + Sync {
 ```
 
 * 此处的FunctionContext是给函数和内存交互的抽象特征，实际上可以看成是内存分配和沙盒对象区取两个部分：
+  
 ```rust
 pub trait FunctionContext {
 	/// 从内存的`address`读取一段数据到向量数组中
@@ -83,7 +87,9 @@ pub trait FunctionContext {
 ```
 
 * 沙盒对象可以看成是更原始的内存存取对象  
+  
 TODO 详细说明后续再描述
+
 ```rust 
 /// Something that provides access to the sandbox.
 pub trait Sandbox {

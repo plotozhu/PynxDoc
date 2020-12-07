@@ -255,8 +255,12 @@ Swarm需要三个参数：transport/Behaviour/localid，最后一个很容易理
 1. 当收到子流发送的数据后，自动处理生成事件后，调用`inject_node_event`来通知处理
 2. `inject_node_event`的实现者对消息进行处理，一般作处理后，再向上一层汇报（消息到达，或者消息已经处理），然后由上一层决定下一步的处理方案；另外也可以本层处理，比如找到转发的目标节点进行转发，不向上一层次汇报。
 3. `inject_node_event`中的第三个参数需要在impl ProtocolsHandler for [ThisHandler] {...}里定义为OutEvent
+### `NetworkBehaviourEventProcess`
+
+这个定义用于对inject_event进行处理，针对每一种Ｂehaviour类型，可以定义一次。在这个定义里，由于有整个定制behaviour对象，因此可以调用对象中的每个Behaviour项，从而实现了多个Behaviour项之间的交互。
 
 #### `poll`
+poll是可选的，这个仅仅是用于向更外层的调用者提供结果数据
 
 
 ## 特征 ProtocolsHandler

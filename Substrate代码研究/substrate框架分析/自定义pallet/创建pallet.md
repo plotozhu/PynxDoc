@@ -58,7 +58,7 @@ impl<T: pallet_balances::Trait> PaysFee<(&BalanceOf<T>,)> for WeightForSetDummy<
 ## 配置特征
 我们的货盘的配置特征。我们所有的类型和常量都在这里。如果这个托盘依赖于其他特定的托盘，它们的配置特征也应该添加到我们的隐式特征列表中。
 
-`frame_system :: Trait`应该始终包含在我们的隐含特征中。
+`frame_system::Trait`应该始终包含在我们的隐含特征中。
 ```rust
 pub trait Trait: pallet_balances::Trait {
     /// The overarching event type.
