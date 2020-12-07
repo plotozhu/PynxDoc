@@ -1,0 +1,354 @@
+/home/zhu/.cargo/bin/cargo build --color=always --package node-template-runtime --lib
+   Compiling proc-macro2 v1.0.24
+   Compiling unicode-xid v0.2.1
+   Compiling syn v1.0.44
+   Compiling libc v0.2.79
+   Compiling cfg-if v0.1.10
+   Compiling autocfg v1.0.0
+   Compiling smallvec v1.4.1
+   Compiling serde_derive v1.0.116
+   Compiling serde v1.0.116
+   Compiling memchr v2.3.3
+   Compiling byteorder v1.3.4
+   Compiling scopeguard v1.1.0
+   Compiling typenum v1.12.0
+   Compiling getrandom v0.1.14
+   Compiling log v0.4.11
+   Compiling instant v0.1.6
+   Compiling either v1.6.0
+   Compiling futures-core v0.3.5
+   Compiling arrayvec v0.5.1
+   Compiling proc-macro-hack v0.5.16
+   Compiling ppv-lite86 v0.2.8
+   Compiling lazy_static v1.4.0
+   Compiling futures-io v0.3.5
+   Compiling libm v0.2.1
+   Compiling ahash v0.3.8
+   Compiling pin-project-internal v0.4.22
+   Compiling proc-macro-nested v0.1.6
+   Compiling futures-sink v0.3.5
+   Compiling pin-utils v0.1.0
+   Compiling pin-project-lite v0.1.7
+   Compiling radium v0.3.0
+   Compiling slab v0.4.2
+   Compiling crunchy v0.2.2
+   Compiling byte-slice-cast v0.3.5
+   Compiling byte-tools v0.3.1
+   Compiling static_assertions v1.1.0
+   Compiling opaque-debug v0.2.3
+   Compiling fake-simd v0.1.2
+   Compiling version_check v0.9.2
+   Compiling regex-syntax v0.6.18
+   Compiling subtle v1.0.0
+   Compiling arrayref v0.3.6
+   Compiling itoa v0.4.6
+   Compiling keccak v0.1.0
+   Compiling rustc-hex v2.1.0
+   Compiling subtle v2.2.3
+   Compiling constant_time_eq v0.1.5
+   Compiling tinyvec v0.3.3
+   Compiling gimli v0.22.0
+   Compiling adler v0.2.3
+   Compiling sp-std v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/std)
+   Compiling ryu v1.0.5
+   Compiling rustc-demangle v0.1.16
+   Compiling parity-util-mem v0.7.0
+   Compiling cpuid-bool v0.1.2
+   Compiling opaque-debug v0.3.0
+   Compiling object v0.20.0
+   Compiling serde_json v1.0.58
+   Compiling signature v1.1.0
+   Compiling failure_derive v0.1.8
+   Compiling arrayvec v0.4.12
+   Compiling parity-wasm v0.41.0
+   Compiling ansi_term v0.12.1
+   Compiling memory_units v0.3.0
+   Compiling nodrop v0.1.14
+   Compiling hash-db v0.15.2
+   Compiling tiny-keccak v2.0.2
+   Compiling environmental v1.1.2
+   Compiling dyn-clone v1.0.2
+   Compiling rustc-hash v1.1.0
+   Compiling hex v0.4.2
+   Compiling base58 v0.1.0
+   Compiling integer-sqrt v0.1.3
+   Compiling autocfg v0.1.7
+   Compiling semver-parser v0.7.0
+   Compiling maybe-uninit v2.0.0
+   Compiling bytes v0.5.6
+   Compiling rand_core v0.4.2
+   Compiling bitflags v1.2.1
+   Compiling fnv v1.0.7
+   Compiling anyhow v1.0.31
+   Compiling cache-padded v1.1.1
+   Compiling unicode-segmentation v1.6.0
+   Compiling remove_dir_all v0.5.3
+   Compiling matches v0.1.8
+   Compiling waker-fn v1.0.0
+   Compiling cc v1.0.58
+   Compiling fixedbitset v0.2.0
+   Compiling parking v2.0.0
+   Compiling fastrand v1.4.0
+   Compiling multimap v0.8.1
+   Compiling getrandom v0.2.0
+   Compiling rawpointer v0.2.1
+   Compiling unsigned-varint v0.5.1
+   Compiling unsigned-varint v0.3.3
+   Compiling percent-encoding v2.1.0
+   Compiling async-task v4.0.2
+   Compiling event-listener v2.5.1
+   Compiling vec-arena v1.0.0
+   Compiling prometheus v0.10.0
+   Compiling spin v0.5.2
+   Compiling bs58 v0.3.1
+   Compiling httparse v1.3.4
+   Compiling data-encoding v2.2.1
+   Compiling futures-timer v3.0.2
+   Compiling untrusted v0.7.1
+   Compiling atomic-waker v1.0.0
+   Compiling void v1.0.2
+   Compiling try-lock v0.2.3
+   Compiling tower-service v0.3.0
+   Compiling futures-timer v2.0.2
+   Compiling substrate-wasm-builder-runner v2.0.0 (/home/zhu/pnyx/pnyxchain/utils/wasm-builder-runner)
+   Compiling safe-mix v1.0.1
+   Compiling lock_api v0.4.1
+   Compiling lock_api v0.3.4
+   Compiling tracing-core v0.1.17
+   Compiling thread_local v1.0.1
+   Compiling sharded-slab v0.0.9
+   Compiling futures-channel v0.3.5
+   Compiling itertools v0.8.2
+   Compiling block-padding v0.1.5
+   Compiling bitvec v0.17.4
+   Compiling miniz_oxide v0.4.0
+   Compiling ed25519 v1.0.1
+   Compiling trie-root v0.16.0
+   Compiling hashbrown v0.8.1
+   Compiling num-traits v0.2.12
+   Compiling num-integer v0.1.43
+   Compiling num-bigint v0.2.6
+   Compiling num-rational v0.2.4
+   Compiling indexmap v1.5.0
+   Compiling num-complex v0.2.4
+   Compiling crossbeam-utils v0.7.2
+   Compiling atomic v0.5.0
+   Compiling unicode-normalization v0.1.13
+   Compiling semver v0.9.0
+   Compiling concurrent-queue v1.2.2
+   Compiling generic-array v0.14.3
+   Compiling rand_core v0.3.1
+   Compiling rand_jitter v0.1.4
+   Compiling unicode-bidi v0.3.4
+   Compiling blake2s_simd v0.5.10
+   Compiling blake2b_simd v0.5.10
+   Compiling matrixmultiply v0.2.3
+   Compiling http v0.2.1
+   Compiling async-mutex v1.4.0
+   Compiling rand_pcg v0.1.2
+   Compiling rand_chacha v0.1.1
+   Compiling rand v0.6.5
+   Compiling hashbrown v0.6.3
+   Compiling heck v0.3.1
+   Compiling paste-impl v0.1.18
+   Compiling rand_hc v0.1.0
+   Compiling rand_isaac v0.1.1
+   Compiling rand_xorshift v0.1.1
+   Compiling async-channel v1.5.1
+   Compiling node-template-runtime v2.0.0 (/home/zhu/pnyx/pnyxchain/bin/node-template/runtime)
+   Compiling rustc_version v0.2.3
+   Compiling wasmi-validation v0.3.0
+   Compiling hash256-std-hasher v0.15.2
+   Compiling aho-corasick v0.7.13
+   Compiling futures-lite v1.11.1
+   Compiling tokio v0.2.22
+   Compiling tracing-log v0.1.1
+   Compiling kv-log-macro v1.0.7
+   Compiling want v0.3.0
+   Compiling uint v0.8.3
+   Compiling idna v0.2.0
+   Compiling quote v1.0.7
+   Compiling smallvec v0.6.13
+   Compiling ring v0.16.15
+   Compiling regex-automata v0.1.9
+   Compiling parking_lot_core v0.8.0
+   Compiling num_cpus v1.13.0
+   Compiling time v0.1.43
+   Compiling parking_lot_core v0.7.2
+   Compiling which v3.1.1
+   Compiling rand_os v0.1.3
+   Compiling rand v0.5.6
+   Compiling polling v1.1.0
+   Compiling socket2 v0.3.12
+   Compiling blake2-rfc v0.2.18
+   Compiling parking_lot_core v0.6.2
+   Compiling parking_lot v0.9.0
+   Compiling addr2line v0.13.0
+   Compiling paste v0.1.18
+   Compiling trie-db v0.22.0
+   Compiling rand_core v0.5.1
+   Compiling generic-array v0.12.3
+   Compiling parking_lot v0.11.0
+   Compiling parking_lot v0.10.2
+   Compiling url v2.1.1
+   Compiling regex v1.3.9
+   Compiling prost-build v0.6.1
+   Compiling http-body v0.3.1
+   Compiling const-random-macro v0.1.11
+   Compiling backtrace v0.3.50
+   Compiling approx v0.3.2
+   Compiling matchers v0.0.1
+   Compiling rand_chacha v0.2.2
+   Compiling rand_pcg v0.2.1
+   Compiling once_cell v1.4.1
+   Compiling digest v0.8.1
+   Compiling block-buffer v0.7.3
+   Compiling crypto-mac v0.7.0
+   Compiling petgraph v0.5.1
+   Compiling statrs v0.10.0
+   Compiling digest v0.9.0
+   Compiling block-buffer v0.9.0
+   Compiling tokio-util v0.3.1
+   Compiling sp-panic-handler v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/panic-handler)
+   Compiling chrono v0.4.13
+   Compiling futures-task v0.3.5
+   Compiling async-executor v1.3.0
+   Compiling async-io v1.1.0
+   Compiling blocking v1.0.2
+   Compiling rand v0.7.3
+   Compiling sha2 v0.8.2
+   Compiling sha3 v0.8.2
+   Compiling sha-1 v0.8.2
+   Compiling hmac v0.7.1
+   Compiling pbkdf2 v0.3.0
+   Compiling const-random v0.1.11
+   Compiling sha2 v0.9.1
+   Compiling alga v0.9.3
+   Compiling Inflector v0.11.4
+   Compiling hmac-drbg v0.2.0
+   Compiling multihash v0.11.2
+   Compiling ahash v0.2.19
+   Compiling async-global-executor v1.3.0
+   Compiling async-std v1.6.5
+   Compiling fixed-hash v0.6.1
+   Compiling libsecp256k1 v0.3.5
+   Compiling twox-hash v1.5.0
+   Compiling tempfile v3.1.0
+   Compiling lru v0.4.3
+   Compiling wasmi v0.6.2
+   Compiling nalgebra v0.18.1
+   Compiling synstructure v0.12.4
+   Compiling futures-macro v0.3.5
+   Compiling zeroize_derive v1.0.0
+   Compiling thiserror-impl v1.0.21
+   Compiling tracing-attributes v0.1.11
+   Compiling impl-trait-for-tuples v0.1.3
+   Compiling ref-cast-impl v1.0.2
+   Compiling sp-debug-derive v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/debug-derive)
+   Compiling parity-util-mem-derive v0.1.0
+   Compiling dyn-clonable-impl v0.9.0
+   Compiling derive_more v0.99.9
+   Compiling async-trait v0.1.37
+   Compiling frame-support-procedural-tools-derive v2.0.0 (/home/zhu/pnyx/pnyxchain/frame/support/procedural/tools/derive)
+   Compiling prost-derive v0.6.1
+   Compiling pin-project-internal v1.0.1
+   Compiling asn1_der_derive v0.1.2
+   Compiling libp2p-core-derive v0.20.2
+   Compiling zeroize v1.1.0
+   Compiling dyn-clonable v0.9.0
+   Compiling ref-cast v1.0.2
+   Compiling curve25519-dalek v3.0.0
+   Compiling curve25519-dalek v2.1.0
+   Compiling merlin v2.0.0
+   Compiling secrecy v0.6.0
+   Compiling failure v0.1.8
+   Compiling tiny-bip39 v0.7.3
+   Compiling schnorrkel v0.9.1
+   Compiling asn1_der v0.6.3
+   Compiling thiserror v1.0.21
+   Compiling tracing v0.1.21
+   Compiling pin-project v0.4.22
+   Compiling futures-util v0.3.5
+   Compiling substrate-bip39 v0.4.2
+   Compiling prost v0.6.1
+   Compiling prost-types v0.6.1
+   Compiling pin-project v1.0.1
+   Compiling libp2p-core v0.23.1
+   Compiling futures-executor v0.3.5
+   Compiling h2 v0.2.6
+   Compiling futures v0.3.5
+   Compiling wasm-timer v0.2.4
+   Compiling multistream-select v0.8.4
+   Compiling rw-stream-sink v0.2.1
+   Compiling sp-utils v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/utils)
+   Compiling linregress v0.1.7
+   Compiling toml v0.5.6
+   Compiling impl-serde v0.3.1
+   Compiling tracing-serde v0.1.2
+   Compiling ed25519-dalek v1.0.1
+   Compiling parity-multiaddr v0.9.3
+   Compiling proc-macro-crate v0.1.5
+   Compiling tracing-subscriber v0.2.13
+   Compiling frame-support-procedural-tools v2.0.0 (/home/zhu/pnyx/pnyxchain/frame/support/procedural/tools)
+   Compiling parity-scale-codec-derive v1.2.1
+   Compiling sp-runtime-interface-proc-macro v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/runtime-interface/proc-macro)
+   Compiling sp-api-proc-macro v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/api/proc-macro)
+   Compiling frame-support-procedural v2.0.0 (/home/zhu/pnyx/pnyxchain/frame/support/procedural)
+   Compiling libp2p-swarm v0.23.0
+   Compiling hyper v0.13.7
+   Compiling libp2p v0.29.1
+   Compiling parity-scale-codec v1.3.4
+   Compiling substrate-prometheus-endpoint v0.8.0 (/home/zhu/pnyx/pnyxchain/utils/prometheus)
+   Compiling impl-codec v0.4.2
+   Compiling sp-storage v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/storage)
+   Compiling sp-tracing v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/tracing)
+   Compiling sp-wasm-interface v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/wasm-interface)
+   Compiling sp-arithmetic v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/arithmetic)
+   Compiling finality-grandpa v0.12.3
+   Compiling primitive-types v0.7.2
+   Compiling sp-externalities v0.8.0 (/home/zhu/pnyx/pnyxchain/primitives/externalities)
+   Compiling sp-runtime-interface v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/runtime-interface)
+   Compiling memory-db v0.24.1
+   Compiling kvdb v0.7.0
+   Compiling sp-database v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/database)
+   Compiling sp-core v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/core)
+   Compiling sp-trie v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/trie)
+   Compiling sp-keystore v0.8.0 (/home/zhu/pnyx/pnyxchain/primitives/keystore)
+   Compiling sp-inherents v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/inherents)
+   Compiling frame-metadata v12.0.0 (/home/zhu/pnyx/pnyxchain/frame/metadata)
+   Compiling sp-state-machine v0.8.0 (/home/zhu/pnyx/pnyxchain/primitives/state-machine)
+   Compiling sp-io v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/io)
+   Compiling sp-application-crypto v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/application-crypto)
+   Compiling sp-runtime v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/runtime)
+   Compiling sp-version v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/version)
+   Compiling frame-support v2.0.0 (/home/zhu/pnyx/pnyxchain/frame/support)
+   Compiling sp-staking v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/staking)
+   Compiling sp-authorship v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/authorship)
+   Compiling sp-api v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/api)
+   Compiling sp-timestamp v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/timestamp)
+   Compiling sp-session v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/session)
+   Compiling sp-block-builder v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/block-builder)
+   Compiling sp-consensus v0.8.0 (/home/zhu/pnyx/pnyxchain/primitives/consensus/common)
+   Compiling sp-finality-grandpa v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/finality-grandpa)
+   Compiling sp-offchain v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/offchain)
+   Compiling frame-system-rpc-runtime-api v2.0.0 (/home/zhu/pnyx/pnyxchain/frame/system/rpc/runtime-api)
+   Compiling sp-consensus-aura v0.8.0 (/home/zhu/pnyx/pnyxchain/primitives/consensus/aura)
+   Compiling sp-blockchain v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/blockchain)
+   Compiling sp-transaction-pool v2.0.0 (/home/zhu/pnyx/pnyxchain/primitives/transaction-pool)
+   Compiling frame-system v2.0.0 (/home/zhu/pnyx/pnyxchain/frame/system)
+   Compiling pallet-transaction-payment-rpc-runtime-api v2.0.0 (/home/zhu/pnyx/pnyxchain/frame/transaction-payment/rpc/runtime-api)
+   Compiling frame-benchmarking v2.0.0 (/home/zhu/pnyx/pnyxchain/frame/benchmarking)
+   Compiling pallet-authorship v2.0.0 (/home/zhu/pnyx/pnyxchain/frame/authorship)
+   Compiling frame-executive v2.0.0 (/home/zhu/pnyx/pnyxchain/frame/executive)
+   Compiling pallet-template v2.0.0 (/home/zhu/pnyx/pnyxchain/bin/node-template/pallets/template)
+   Compiling pallet-sudo v2.0.0 (/home/zhu/pnyx/pnyxchain/frame/sudo)
+   Compiling pallet-randomness-collective-flip v2.0.0 (/home/zhu/pnyx/pnyxchain/frame/randomness-collective-flip)
+   Compiling pallet-transaction-payment v2.0.0 (/home/zhu/pnyx/pnyxchain/frame/transaction-payment)
+   Compiling pallet-timestamp v2.0.0 (/home/zhu/pnyx/pnyxchain/frame/timestamp)
+   Compiling pallet-balances v2.0.0 (/home/zhu/pnyx/pnyxchain/frame/balances)
+   Compiling pallet-session v2.0.0 (/home/zhu/pnyx/pnyxchain/frame/session)
+   Compiling pallet-grandpa v2.0.0 (/home/zhu/pnyx/pnyxchain/frame/grandpa)
+   Compiling pallet-aura v2.0.0 (/home/zhu/pnyx/pnyxchain/frame/aura)
+    Finished dev [unoptimized + debuginfo] target(s) in 1m 26s
+
+Process finished with exit code 0
