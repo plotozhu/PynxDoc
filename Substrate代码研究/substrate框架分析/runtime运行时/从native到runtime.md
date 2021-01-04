@@ -82,7 +82,7 @@ substrate 运行时 api 是节点和运行时之间的关键接口，每个进�
  # impl GetNodeBlockType for Runtime {
  #     type NodeBlock = Block;
  # }
- #
+ #TransactionPoolExt
  # sp_api::decl_runtime_apis! {
  #      Declare the api trait.
  #     pub trait Balance {
@@ -138,4 +138,11 @@ substrate 运行时 api 是节点和运行时之间的关键接口，每个进�
  ```
 
 # 总结 *** 非常重要 ***
-代码分成了链上(wasm)运行和链下运行部分(native code)。
+使用extension创建链上调用链下的过程如下：　　　
+
+1. decl_extension!创建一个xxxExt
+2. 定义一个链上和链下都相同或是类似的接口　　
+3. 在extension中定义一个该接口的对象m
+4. 使用此m创建一个adapter
+5. extension.register注册一个xxxExt(adapter)对象
+
